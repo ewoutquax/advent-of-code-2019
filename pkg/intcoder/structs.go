@@ -50,8 +50,7 @@ type Statement interface {
 }
 
 type StatementAdd struct {
-	size   int `default:"4"`
-	OpCode CodeOperation
+	size int `default:"4"`
 
 	Left   Parameter
 	Right  Parameter
@@ -59,8 +58,7 @@ type StatementAdd struct {
 }
 
 type StatementMultiply struct {
-	size   int `default:"4"`
-	OpCode CodeOperation
+	size int `default:"4"`
 
 	Left   Parameter
 	Right  Parameter
@@ -68,38 +66,33 @@ type StatementMultiply struct {
 }
 
 type StatementInput struct {
-	size   int `default:"2"`
-	OpCode CodeOperation
+	size int `default:"2"`
 
 	Target Parameter
 }
 
 type StatementOutput struct {
-	size   int `default:"2"`
-	OpCode CodeOperation
+	size int `default:"2"`
 
 	Target Parameter
 }
 
 type StatementJumpIfTrue struct {
-	size   int `default:"3"`
-	OpCode CodeOperation
+	size int `default:"3"`
 
 	Comparer    Parameter
 	JumpToIndex Parameter
 }
 
 type StatementJumpIfFalse struct {
-	size   int `default:"3"`
-	OpCode CodeOperation
+	size int `default:"3"`
 
 	Comparer    Parameter
 	JumpToIndex Parameter
 }
 
 type StatementLessThen struct {
-	size   int `default:"2"`
-	OpCode CodeOperation
+	size int `default:"2"`
 
 	Left   Parameter
 	Right  Parameter
@@ -107,8 +100,7 @@ type StatementLessThen struct {
 }
 
 type StatementEqual struct {
-	size   int `default:"2"`
-	OpCode CodeOperation
+	size int `default:"2"`
 
 	Left   Parameter
 	Right  Parameter
@@ -116,6 +108,5 @@ type StatementEqual struct {
 }
 
 type StatementHalt struct {
-	size   int `default:"1"`
-	OpCode CodeOperation
+	size int `default:"1"`
 }

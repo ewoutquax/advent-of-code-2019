@@ -1,6 +1,8 @@
 package intcoder_test
 
 import (
+	"fmt"
+	"reflect"
 	"testing"
 
 	. "github.com/ewoutquax/advent-of-code-2019/pkg/intcoder"
@@ -8,14 +10,16 @@ import (
 )
 
 func TestBuildStatement(t *testing.T) {
+	assert := assert.New(t)
 	intCoder := Compile([]int{1, 0, 0, 0, 99})
+
 	statement := intCoder.BuildStatement()
+	assert.Equal("intcoder.StatementAdd", fmt.Sprintf("%s", reflect.TypeOf(statement)))
 
 	statementAdd := statement.(StatementAdd)
-	assert.Equal(t, "01", string(statementAdd.OpCode))
-	assert.Equal(t, 0, statementAdd.Left.Index)
-	assert.Equal(t, 1, statementAdd.Left.Value)
-	assert.Equal(t, ModePosition, statementAdd.Target.Mode)
+	assert.Equal(0, statementAdd.Left.Index)
+	assert.Equal(1, statementAdd.Left.Value)
+	assert.Equal(ModePosition, statementAdd.Target.Mode)
 }
 
 func TestSimpleProgram(t *testing.T) {

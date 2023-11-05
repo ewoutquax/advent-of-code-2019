@@ -29,7 +29,6 @@ func (i *IntCoder) BuildStatement() Statement {
 func buildStatementAdd(i *IntCoder) Statement {
 	return StatementAdd{
 		size:   4,
-		OpCode: OperationAdd,
 		Left:   i.buildParameter(1),
 		Right:  i.buildParameter(2),
 		Target: i.buildParameter(3),
@@ -39,7 +38,6 @@ func buildStatementAdd(i *IntCoder) Statement {
 func buildStatementMultiply(i *IntCoder) Statement {
 	return StatementMultiply{
 		size:   4,
-		OpCode: OperationMultiply,
 		Left:   i.buildParameter(1),
 		Right:  i.buildParameter(2),
 		Target: i.buildParameter(3),
@@ -49,7 +47,6 @@ func buildStatementMultiply(i *IntCoder) Statement {
 func buildStatementInput(i *IntCoder) Statement {
 	return StatementInput{
 		size:   2,
-		OpCode: OperationInput,
 		Target: i.buildParameter(1),
 	}
 }
@@ -57,7 +54,6 @@ func buildStatementInput(i *IntCoder) Statement {
 func buildStatementOutput(i *IntCoder) Statement {
 	return StatementOutput{
 		size:   2,
-		OpCode: OperationOutput,
 		Target: i.buildParameter(1),
 	}
 }
@@ -65,7 +61,6 @@ func buildStatementOutput(i *IntCoder) Statement {
 func buildStatementJumpIfTrue(i *IntCoder) Statement {
 	return StatementJumpIfTrue{
 		size:        3,
-		OpCode:      OperationJumpIfTrue,
 		Comparer:    i.buildParameter(1),
 		JumpToIndex: i.buildParameter(2),
 	}
@@ -74,7 +69,6 @@ func buildStatementJumpIfTrue(i *IntCoder) Statement {
 func buildStatementJumpIfFalse(i *IntCoder) Statement {
 	return StatementJumpIfFalse{
 		size:        3,
-		OpCode:      OperationJumpIfFalse,
 		Comparer:    i.buildParameter(1),
 		JumpToIndex: i.buildParameter(2),
 	}
@@ -83,7 +77,6 @@ func buildStatementJumpIfFalse(i *IntCoder) Statement {
 func buildStatementLessThen(i *IntCoder) Statement {
 	return StatementLessThen{
 		size:   4,
-		OpCode: OperationLessThen,
 		Left:   i.buildParameter(1),
 		Right:  i.buildParameter(2),
 		Target: i.buildParameter(3),
@@ -93,7 +86,6 @@ func buildStatementLessThen(i *IntCoder) Statement {
 func buildStatementEqual(i *IntCoder) Statement {
 	return StatementEqual{
 		size:   4,
-		OpCode: OperationEqual,
 		Left:   i.buildParameter(1),
 		Right:  i.buildParameter(2),
 		Target: i.buildParameter(3),
@@ -102,7 +94,6 @@ func buildStatementEqual(i *IntCoder) Statement {
 
 func buildStatementHalt(i *IntCoder) Statement {
 	return StatementHalt{
-		size:   1,
-		OpCode: OperationHalt,
+		size: 1,
 	}
 }
