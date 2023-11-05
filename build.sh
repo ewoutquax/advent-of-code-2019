@@ -1,2 +1,3 @@
 #! /usr/bin/env bash
-go build -o solver ./cmd/solver/main.go
+mkdir -p bin/
+go build -o bin/solver ./cmd/solver/main.go
