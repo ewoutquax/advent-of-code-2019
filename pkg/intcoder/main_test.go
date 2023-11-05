@@ -1,9 +1,9 @@
-package day021202programalarm_test
+package intcoder_test
 
 import (
 	"testing"
 
-	. "github.com/ewoutquax/advent-of-code-2019/internal/day-02-1202-program-alarm"
+	. "github.com/ewoutquax/advent-of-code-2019/pkg/intcoder"
 	"github.com/stretchr/testify/assert"
 )
 
