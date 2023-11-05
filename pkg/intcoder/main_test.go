@@ -10,9 +10,9 @@ import (
 func TestBuildStatement(t *testing.T) {
 	intCoder := Compile([]int{1, 0, 0, 0, 99})
 	statement := intCoder.BuildStatement()
-	assert.Equal(t, "01", string(statement.OpCode()))
 
 	statementAdd := statement.(StatementAdd)
+	assert.Equal(t, "01", string(statementAdd.OpCode))
 	assert.Equal(t, 0, statementAdd.Left.Index)
 	assert.Equal(t, 1, statementAdd.Left.Value)
 	assert.Equal(t, ModePosition, statementAdd.Target.Mode)
