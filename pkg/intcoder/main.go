@@ -1,6 +1,9 @@
 package intcoder
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Status uint
 
@@ -36,11 +39,15 @@ type Parameter struct {
 type CodeOperation string
 
 const (
-	OperationAdd      CodeOperation = "01"
-	OperationMultiply               = "02"
-	OperationInput                  = "03"
-	OperationOutput                 = "04"
-	OperationHalt                   = "99"
+	OperationAdd         CodeOperation = "01"
+	OperationMultiply                  = "02"
+	OperationInput                     = "03"
+	OperationOutput                    = "04"
+	OperationJumpIfTrue                = "05"
+	OperationJumpIfFalse               = "06"
+	OperationLessThen                  = "07"
+	OperationEqual                     = "08"
+	OperationHalt                      = "99"
 )
 
 type StatementAdd struct {
@@ -71,15 +78,49 @@ type StatementOutput struct {
 	Target Parameter
 }
 
+type StatementJumpIfTrue struct {
+	size int `default:"3"`
+
+	Comparer    Parameter
+	JumpToIndex Parameter
+}
+
+type StatementJumpIfFalse struct {
+	size int `default:"3"`
+
+	Comparer    Parameter
+	JumpToIndex Parameter
+}
+
+type StatementLessThen struct {
+	size int `default:"2"`
+
+	Left   Parameter
+	Right  Parameter
+	Target Parameter
+}
+
+type StatementEqual struct {
+	size int `default:"2"`
+
+	Left   Parameter
+	Right  Parameter
+	Target Parameter
+}
+
 type StatementHalt struct {
 	size int `default:"1"`
 }
 
-func (s StatementAdd) OpCode() CodeOperation      { return OperationAdd }
-func (s StatementMultiply) OpCode() CodeOperation { return OperationMultiply }
-func (s StatementInput) OpCode() CodeOperation    { return OperationInput }
-func (s StatementOutput) OpCode() CodeOperation   { return OperationOutput }
-func (s StatementHalt) OpCode() CodeOperation     { return OperationHalt }
+func (s StatementAdd) OpCode() CodeOperation         { return OperationAdd }
+func (s StatementMultiply) OpCode() CodeOperation    { return OperationMultiply }
+func (s StatementInput) OpCode() CodeOperation       { return OperationInput }
+func (s StatementOutput) OpCode() CodeOperation      { return OperationOutput }
+func (s StatementJumpIfTrue) OpCode() CodeOperation  { return OperationJumpIfTrue }
+func (s StatementJumpIfFalse) OpCode() CodeOperation { return OperationJumpIfFalse }
+func (s StatementLessThen) OpCode() CodeOperation    { return OperationLessThen }
+func (s StatementEqual) OpCode() CodeOperation       { return OperationEqual }
+func (s StatementHalt) OpCode() CodeOperation        { return OperationHalt }
 
 func (s StatementAdd) exec(i *IntCoder) {
 	i.sourceCode[s.Target.Index] = s.Left.Value + s.Right.Value
@@ -100,6 +141,36 @@ func (s StatementInput) exec(i *IntCoder) {
 }
 func (s StatementOutput) exec(i *IntCoder) {
 	i.output = i.sourceCode[s.Target.Index]
+	i.idxInstruction += s.size
+}
+func (s StatementJumpIfTrue) exec(i *IntCoder) {
+	if s.Comparer.Value == 0 {
+		i.idxInstruction += s.size
+	} else {
+		i.idxInstruction = s.JumpToIndex.Value
+	}
+}
+func (s StatementJumpIfFalse) exec(i *IntCoder) {
+	if s.Comparer.Value == 0 {
+		i.idxInstruction = s.JumpToIndex.Value
+	} else {
+		i.idxInstruction += s.size
+	}
+}
+func (s StatementLessThen) exec(i *IntCoder) {
+	if s.Left.Value < s.Right.Value {
+		i.sourceCode[s.Target.Index] = 1
+	} else {
+		i.sourceCode[s.Target.Index] = 0
+	}
+	i.idxInstruction += s.size
+}
+func (s StatementEqual) exec(i *IntCoder) {
+	if s.Left.Value == s.Right.Value {
+		i.sourceCode[s.Target.Index] = 1
+	} else {
+		i.sourceCode[s.Target.Index] = 0
+	}
 	i.idxInstruction += s.size
 }
 func (s StatementHalt) exec(i *IntCoder) {
@@ -161,10 +232,15 @@ func (i *IntCoder) BuildStatement() Statement {
 			2:  buildStatementMultiply,
 			3:  buildStatementInput,
 			4:  buildStatementOutput,
+			5:  buildStatementJumpIfTrue,
+			6:  buildStatementJumpIfFalse,
+			7:  buildStatementLessThen,
+			8:  buildStatementEqual,
 			99: buildStatementHalt,
 		}[i.sourceCode[i.idxInstruction]%100]
 
 	if buildFunc == nil {
+		fmt.Printf("BuildStatement: idxInstruction / OpCode: %d / %d\n", i.idxInstruction, i.sourceCode[i.idxInstruction])
 		panic("unknown opcode")
 	}
 
@@ -200,6 +276,40 @@ func buildStatementOutput(i *IntCoder) Statement {
 	return StatementOutput{
 		size:   2,
 		Target: i.buildParameter(1),
+	}
+}
+
+func buildStatementJumpIfTrue(i *IntCoder) Statement {
+	return StatementJumpIfTrue{
+		size:        3,
+		Comparer:    i.buildParameter(1),
+		JumpToIndex: i.buildParameter(2),
+	}
+}
+
+func buildStatementJumpIfFalse(i *IntCoder) Statement {
+	return StatementJumpIfFalse{
+		size:        3,
+		Comparer:    i.buildParameter(1),
+		JumpToIndex: i.buildParameter(2),
+	}
+}
+
+func buildStatementLessThen(i *IntCoder) Statement {
+	return StatementLessThen{
+		size:   4,
+		Left:   i.buildParameter(1),
+		Right:  i.buildParameter(2),
+		Target: i.buildParameter(3),
+	}
+}
+
+func buildStatementEqual(i *IntCoder) Statement {
+	return StatementEqual{
+		size:   4,
+		Left:   i.buildParameter(1),
+		Right:  i.buildParameter(2),
+		Target: i.buildParameter(3),
 	}
 }
 
