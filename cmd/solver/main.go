@@ -10,6 +10,7 @@ import (
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-01-the-tyranny-of-the-rocket-equation"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-02-1202-program-alarm"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-03-crossed-wires"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-04-secure-container"
 	"github.com/ewoutquax/advent-of-code-2019/pkg/register"
 )
 
