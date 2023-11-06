@@ -1,11 +1,11 @@
 package intcoder
 
-type Status uint
+type Status string
 
 const (
-	StatusRunning Status = iota + 1
-	StatusAwaitingInput
-	StatusHalted
+	StatusRunning       Status = "running"
+	StatusAwaitingInput        = "awaiting input"
+	StatusHalted               = "halted"
 )
 
 type IntCoder struct {

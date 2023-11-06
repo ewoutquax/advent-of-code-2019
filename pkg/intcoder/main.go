@@ -9,6 +9,10 @@ func (i *IntCoder) Run() {
 	}
 }
 
+func (i *IntCoder) Status() string {
+	return string(i.status)
+}
+
 func (i *IntCoder) Set(index, instruction int) {
 	i.sourceCode[index] = instruction
 }
