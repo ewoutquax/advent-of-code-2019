@@ -17,23 +17,26 @@ func init() {
 func solvePart1(inputFile string) {
 	line := utils.ReadFileAsLine(inputFile)
 
-	var sourceCode []int
-	for _, code := range strings.Split(line, ",") {
-		sourceCode = append(sourceCode, utils.ConvStrToI(code))
-	}
-
-	fmt.Printf("Result of day-07 / part-1: %d\n", MaxThrusterSignal(sourceCode))
+	fmt.Printf(
+		"Result of day-07 / part-1: %d\n",
+		MaxThrusterSignal(parseInput(line)),
+	)
 }
 
 func solvePart2(inputFile string) {
 	line := utils.ReadFileAsLine(inputFile)
 
-	var sourceCode []int
+	fmt.Printf(
+		"Result of day-07 / part-2: %d\n",
+		MaxLoopedThrusterSignalBySequence(parseInput(line)),
+	)
+}
+
+func parseInput(line string) (sourceCode []int) {
 	for _, code := range strings.Split(line, ",") {
 		sourceCode = append(sourceCode, utils.ConvStrToI(code))
 	}
-
-	fmt.Printf("Result of day-07 / part-2: %d\n", MaxLoopedThrusterSignalBySequence(sourceCode))
+	return
 }
 
 // Build a list of strings made up of the received numbers, with these numbers in each possible order

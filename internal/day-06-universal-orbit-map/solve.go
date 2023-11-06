@@ -21,9 +21,31 @@ func (p *Planet) CountOrbits() (count int) {
 	}
 
 	for _, moon := range p.moons {
-		count += moon.CountOrbits()
+		count += 1 + moon.CountOrbits()
 	}
-	return count + len(p.moons)
+
+	return
+}
+
+func init() {
+	register.Day("6a", solvePart1)
+	register.Day("6b", solvePart2)
+}
+
+func solvePart1(inputFile string) {
+	lines := utils.ReadFileAsLines(inputFile)
+
+	planets := ParseInput(lines)
+
+	fmt.Printf("Result of day-06 / part-1: %d\n", ChecksumOrbits(planets))
+}
+
+func solvePart2(inputFile string) {
+	lines := utils.ReadFileAsLines(inputFile)
+
+	planets := ParseInput(lines)
+
+	fmt.Printf("Result of day-06 / part-2: %d\n", MinNrStepsFromPlanetToPlanet(planets, "YOU", "SAN"))
 }
 
 func MinNrStepsFromPlanetToPlanet(planets map[string]*Planet, nameFrom, nameTo string) (minDistance int) {
@@ -51,25 +73,12 @@ func MinNrStepsFromPlanetToPlanet(planets map[string]*Planet, nameFrom, nameTo s
 	return
 }
 
-func init() {
-	register.Day("6a", solvePart1)
-	register.Day("6b", solvePart2)
-}
+func ChecksumOrbits(planets map[string]*Planet) (count int) {
+	for _, planet := range planets {
+		count += planet.CountOrbits()
+	}
 
-func solvePart1(inputFile string) {
-	lines := utils.ReadFileAsLines(inputFile)
-
-	planets := ParseInput(lines)
-
-	fmt.Printf("Result of day-06 / part-1: %d\n", ChecksumOrbits(planets))
-}
-
-func solvePart2(inputFile string) {
-	lines := utils.ReadFileAsLines(inputFile)
-
-	planets := ParseInput(lines)
-
-	fmt.Printf("Result of day-06 / part-2: %d\n", MinNrStepsFromPlanetToPlanet(planets, "YOU", "SAN"))
+	return
 }
 
 func ParseInput(lines []string) map[string]*Planet {
@@ -97,12 +106,4 @@ func ParseInput(lines []string) map[string]*Planet {
 	}
 
 	return planets
-}
-
-func ChecksumOrbits(planets map[string]*Planet) (count int) {
-	for _, planet := range planets {
-		count += planet.CountOrbits()
-	}
-
-	return
 }
