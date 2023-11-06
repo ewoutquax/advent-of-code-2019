@@ -12,6 +12,7 @@ import (
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-03-crossed-wires"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-04-secure-container"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-05-sunny-with-a-change-of-astroids"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-06-universal-orbit-map"
 	"github.com/ewoutquax/advent-of-code-2019/pkg/register"
 )
 
