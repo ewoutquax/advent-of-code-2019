@@ -18,7 +18,7 @@ func (s StatementInput) exec(i *IntCoder) {
 	}
 }
 func (s StatementOutput) exec(i *IntCoder) {
-	i.output = i.sourceCode[s.Target.Index]
+	i.output = append(i.output, i.sourceCode[s.Target.Index])
 	i.idxInstruction += s.size
 }
 func (s StatementJumpIfTrue) exec(i *IntCoder) {
@@ -49,6 +49,10 @@ func (s StatementEqual) exec(i *IntCoder) {
 	} else {
 		i.sourceCode[s.Target.Index] = 0
 	}
+	i.idxInstruction += s.size
+}
+func (s StatementAdjustRelativeBase) exec(i *IntCoder) {
+	i.relativeBase += s.Target.Value
 	i.idxInstruction += s.size
 }
 func (s StatementHalt) exec(i *IntCoder) {

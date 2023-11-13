@@ -22,8 +22,15 @@ func (i *IntCoder) Send(input int) {
 	i.Run()
 }
 
-func (i *IntCoder) Receive() int {
-	return i.output
+func (i *IntCoder) Receive() (result int) {
+	if len(i.output) == 0 {
+		return -1337
+	}
+
+	result = i.output[0]
+	i.output = i.output[1:]
+
+	return
 }
 
 func (i *IntCoder) Result() (sourceCode []int) {

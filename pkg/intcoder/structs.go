@@ -12,10 +12,11 @@ type IntCoder struct {
 	status Status
 
 	idxInstruction int
+	relativeBase   int
 	sourceCode     map[int]int
 
 	inputs []int
-	output int
+	output []int
 }
 
 type ParameterMode uint
@@ -23,6 +24,7 @@ type ParameterMode uint
 const (
 	ModePosition ParameterMode = iota + 1
 	ModeImmediate
+	ModeRelative
 )
 
 type Parameter struct {
@@ -34,15 +36,16 @@ type Parameter struct {
 type CodeOperation string
 
 const (
-	OperationAdd         CodeOperation = "01"
-	OperationMultiply                  = "02"
-	OperationInput                     = "03"
-	OperationOutput                    = "04"
-	OperationJumpIfTrue                = "05"
-	OperationJumpIfFalse               = "06"
-	OperationLessThen                  = "07"
-	OperationEqual                     = "08"
-	OperationHalt                      = "99"
+	OperationAdd                CodeOperation = "01"
+	OperationMultiply                         = "02"
+	OperationInput                            = "03"
+	OperationOutput                           = "04"
+	OperationJumpIfTrue                       = "05"
+	OperationJumpIfFalse                      = "06"
+	OperationLessThen                         = "07"
+	OperationEqual                            = "08"
+	OperationAdjustRelativeBase               = "08"
+	OperationHalt                             = "99"
 )
 
 type Statement interface {
@@ -104,6 +107,12 @@ type StatementEqual struct {
 
 	Left   Parameter
 	Right  Parameter
+	Target Parameter
+}
+
+type StatementAdjustRelativeBase struct {
+	size int `default:"1"`
+
 	Target Parameter
 }
 

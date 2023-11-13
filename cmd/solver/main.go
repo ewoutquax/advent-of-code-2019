@@ -14,6 +14,10 @@ import (
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-05-sunny-with-a-change-of-astroids"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-06-universal-orbit-map"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-07-amplification-circuit"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-08-space-image-format"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-09-sensor-boost"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-10-monitoring-station"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-13-care-package"
 	"github.com/ewoutquax/advent-of-code-2019/pkg/register"
 )
 
@@ -45,6 +49,10 @@ func getPuzzles() (puzzles []string) {
 }
 
 func readInput(question string) string {
+	if len(os.Args) == 2 {
+		return os.Args[1]
+	}
+
 	fmt.Printf("%s", question)
 	reader := bufio.NewReader(os.Stdin)
 	text, _ := reader.ReadString('\n')

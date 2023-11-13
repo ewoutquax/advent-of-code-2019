@@ -131,3 +131,17 @@ func TestJumps(t *testing.T) {
 	intCoder.Send(10)
 	assert.Equal(t, 1001, intCoder.Receive())
 }
+
+func TestRelativeMode(t *testing.T) {
+	sourceCode := []int{109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99}
+
+	intCoder := Compile(sourceCode)
+	intCoder.Run()
+
+	var result []int
+	for next := intCoder.Receive(); next != -1337; next = intCoder.Receive() {
+		result = append(result, next)
+	}
+
+	assert.Equal(t, result, sourceCode)
+}

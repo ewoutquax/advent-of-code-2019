@@ -15,6 +15,7 @@ func (i *IntCoder) BuildStatement() Statement {
 			6:  buildStatementJumpIfFalse,
 			7:  buildStatementLessThen,
 			8:  buildStatementEqual,
+			9:  buildStatementAdjustRelativeBase,
 			99: buildStatementHalt,
 		}[i.sourceCode[i.idxInstruction]%100]
 
@@ -89,6 +90,13 @@ func buildStatementEqual(i *IntCoder) Statement {
 		Left:   i.buildParameter(1),
 		Right:  i.buildParameter(2),
 		Target: i.buildParameter(3),
+	}
+}
+
+func buildStatementAdjustRelativeBase(i *IntCoder) Statement {
+	return StatementAdjustRelativeBase{
+		size:   2,
+		Target: i.buildParameter(1),
 	}
 }
 

@@ -7,11 +7,13 @@ func (i *IntCoder) buildParameter(offset int) (p Parameter) {
 
 	p.Mode = convToMode(opcode[len(opcode)-2-offset])
 
-	if p.Mode == ModePosition {
+	switch p.Mode {
+	case ModePosition:
 		p.Index = i.sourceCode[i.idxInstruction+offset]
-	}
-	if p.Mode == ModeImmediate {
+	case ModeImmediate:
 		p.Index = i.idxInstruction + offset
+	case ModeRelative:
+		p.Index = i.sourceCode[i.idxInstruction+offset] + i.relativeBase
 	}
 
 	p.Value = i.sourceCode[p.Index]
@@ -23,5 +25,6 @@ func convToMode(b byte) ParameterMode {
 	return map[byte]ParameterMode{
 		'0': ModePosition,
 		'1': ModeImmediate,
+		'2': ModeRelative,
 	}[b]
 }
