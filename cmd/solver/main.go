@@ -18,6 +18,7 @@ import (
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-09-sensor-boost"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-10-monitoring-station"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-13-care-package"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-14-space-stoichiometry"
 	"github.com/ewoutquax/advent-of-code-2019/pkg/register"
 )
 
