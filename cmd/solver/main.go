@@ -19,6 +19,7 @@ import (
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-10-monitoring-station"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-13-care-package"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-14-space-stoichiometry"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-15-oxygen-system"
 	"github.com/ewoutquax/advent-of-code-2019/pkg/register"
 )
 
