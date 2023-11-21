@@ -28,8 +28,8 @@ func (p *Planet) CountOrbits() (count int) {
 }
 
 func init() {
-	register.Day("6a", solvePart1)
-	register.Day("6b", solvePart2)
+	register.Day("06a", solvePart1)
+	register.Day("06b", solvePart2)
 }
 
 func solvePart1(inputFile string) {

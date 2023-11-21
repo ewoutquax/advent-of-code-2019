@@ -88,8 +88,8 @@ func VectorY(d Direction) (vy int) {
 }
 
 func init() {
-	register.Day("3a", solvePart1)
-	register.Day("3b", solvePart2)
+	register.Day("03a", solvePart1)
+	register.Day("03b", solvePart2)
 }
 
 func solvePart1(inputFile string) {

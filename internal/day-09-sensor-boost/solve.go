@@ -10,8 +10,8 @@ import (
 )
 
 func init() {
-	register.Day("9a", solvePart1)
-	register.Day("9b", solvePart2)
+	register.Day("09a", solvePart1)
+	register.Day("09b", solvePart2)
 }
 
 func solvePart1(inputFile string) {
