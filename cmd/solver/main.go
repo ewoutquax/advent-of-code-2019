@@ -20,6 +20,8 @@ import (
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-13-care-package"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-14-space-stoichiometry"
 	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-15-oxygen-system"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-16-flawed-frequency-transmission"
+	_ "github.com/ewoutquax/advent-of-code-2019/internal/day-17-set-and-forget"
 	"github.com/ewoutquax/advent-of-code-2019/pkg/register"
 )
 
